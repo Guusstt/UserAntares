@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../services/api";
-// Komponen HeaderRegistrasi tidak disertakan di sini, pastikan Anda memilikinya
-// import HeaderRegistrasi from "../components/HeaderRegistrasi"; 
+
 
 function Register() {
   const navigate = useNavigate();
-  // State untuk melacak langkah form saat ini
   const [step, setStep] = useState(1); 
-  
-  // State untuk semua data form, termasuk 'kode_pos'
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,7 +23,6 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Hapus pesan error saat pengguna mulai mengetik
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -35,7 +31,6 @@ function Register() {
     }
   };
 
-  // --- Fungsi Navigasi dan Validasi per Langkah ---
 
   const validateStep1 = () => {
     const newErrors = {};
@@ -76,11 +71,10 @@ function Register() {
     setStep(step - 1);
   };
 
-  // --- Fungsi Submit di Langkah Terakhir ---
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateStep2(); // Validasi hanya untuk langkah 2
+    const formErrors = validateStep2();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
@@ -157,7 +151,7 @@ function Register() {
               {renderInput("confirmPassword", "Konfirmasi Password", "password")}
               
               <button
-                type="button" // type="button" agar tidak men-submit form
+                type="button" 
                 onClick={nextStep}
                 style={{ backgroundColor: "#F4631E" }}
                 className="w-full text-white font-semibold py-2 px-4 rounded-md transition duration-200 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -181,7 +175,7 @@ function Register() {
                   Kembali
                 </button>
                 <button
-                  type="submit" // type="submit" untuk mengirim semua data
+                  type="submit" 
                   style={{ backgroundColor: "#F4631E" }}
                   className="w-full text-white font-semibold py-2 px-4 rounded-md transition duration-200 disabled:opacity-50 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
                   disabled={isSubmitting}
